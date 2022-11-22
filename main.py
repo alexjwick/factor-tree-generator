@@ -44,7 +44,11 @@ def printFactorTree(root: Node) -> None:
 
 if __name__ == '__main__':
     while True:
-        i: str = input("Enter integer: ")
+        try:
+            i: str = input("Enter integer: ")
+        except EOFError:
+            print("EOF")
+            exit(0)
         if(i != "exit"):
             isInt: bool = True
             try:
