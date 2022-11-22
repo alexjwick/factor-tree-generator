@@ -1,7 +1,5 @@
 import math
 
-treeHeight: int = 0
-
 class Node:
     def __init__(self, val: int, depth: int):
         self.left: Node = None
@@ -12,10 +10,7 @@ class Node:
 def generateFactorTree(node: Node) -> Node:
     node: Node = node
 
-    global treeHeight
-
     if node.val == 0:
-        treeHeight = 1
         return node
     elif node.val < 0:
         node.left = Node(-1, node.depth + 1)
@@ -27,11 +22,25 @@ def generateFactorTree(node: Node) -> Node:
                 node.left = Node(i, node.depth + 1)
                 node.right = generateFactorTree(Node(int(node.val / i), node.depth + 1))
                 return node
-        treeHeight = node.depth + 1
         return node
 
 def printFactorTree(root: Node) -> None:
-    root: Node = root
+    print(root.val)
+    print("| \\")
+    currNode: Node = root
+    indentation = 0
+    while True:
+        valLen: int = len(str(currNode.right.val))
+        if valLen == 1:
+            print(" " * indentation + str(currNode.left.val) + "  " + str(currNode.right.val))
+            indentation += 3
+        else:
+            print(" " * indentation + str(currNode.left.val) + " " + str(currNode.right.val))
+            indentation += 2
+        currNode = currNode.right
+        if (currNode.right == None):
+            break
+        print(" " * indentation + "| \\")
 
 if __name__ == '__main__':
     while True:
@@ -44,8 +53,7 @@ if __name__ == '__main__':
                 isInt = False
             if isInt:
                 root: Node = generateFactorTree(Node(num, 0))
-                print(treeHeight)
-                treeHeight = 0
+                printFactorTree(root)
             else:
                 print("Input must be an integer")
         else:
