@@ -26,21 +26,22 @@ def generateFactorTree(node: Node) -> Node:
 
 def printFactorTree(root: Node) -> None:
     print(root.val)
-    print("| \\")
-    currNode: Node = root
-    indentation = 0
-    while True:
-        valLen: int = len(str(currNode.right.val))
-        if valLen == 1:
-            print(" " * indentation + str(currNode.left.val) + "  " + str(currNode.right.val))
-            indentation += 3
-        else:
-            print(" " * indentation + str(currNode.left.val) + " " + str(currNode.right.val))
-            indentation += 2
-        currNode = currNode.right
-        if (currNode.right == None):
-            break
-        print(" " * indentation + "| \\")
+    if (root.right != None):
+        print("| \\")
+        currNode: Node = root
+        indentation = 0
+        while True:
+            valLen: int = len(str(currNode.right.val))
+            if valLen == 1:
+                print(" " * indentation + str(currNode.left.val) + "  " + str(currNode.right.val))
+                indentation += 3
+            else:
+                print(" " * indentation + str(currNode.left.val) + " " + str(currNode.right.val))
+                indentation += 2
+            currNode = currNode.right
+            if (currNode.right == None):
+                break
+            print(" " * indentation + "| \\")
 
 if __name__ == '__main__':
     while True:
